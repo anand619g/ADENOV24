@@ -1,0 +1,187 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "DF-ADENOV24"
+		},
+		"LS_ADLS_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_ADLS'"
+		},
+		"LS_SQL_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'LS_SQL'"
+		},
+		"LS_ADLS_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adlsnov24.dfs.core.windows.net/"
+		},
+		"LS_ADLS_KV_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adlsnov24.dfs.core.windows.net/"
+		},
+		"LS_DBS_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "1125-042634-k34o40e7"
+		},
+		"LS_KV_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://kv-adenov24.vault.azure.net/"
+		},
+		"LS_SQL_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "sqlservernov24.database.windows.net"
+		},
+		"LS_SQL_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "dbadenov24"
+		},
+		"LS_SQL_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "sqladmin"
+		},
+		"LS_SQL2_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "sqlservernov24.database.windows.net"
+		},
+		"LS_SQL2_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "dbadenov24"
+		},
+		"LS_SQL2_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "sqladmin"
+		},
+		"Tumbling_Trigger_properties_pipeline_parameters_windowStartTime": {
+			"type": "string",
+			"defaultValue": "@trigger().outputs.windowStartTime"
+		},
+		"Tumbling_Trigger_properties_pipeline_parameters_windowEndTime": {
+			"type": "string",
+			"defaultValue": "@trigger().outputs.windowEndTime"
+		},
+		"eventbasedtrigger_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/988bbad3-94cd-4192-b70e-fceb7e135552/resourceGroups/RG-ADENOV24/providers/Microsoft.Storage/storageAccounts/adlsnov24"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "DF-ADENOV24_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"LS_ADLS_accountKey": {
+						"value": "[parameters('LS_ADLS_accountKey')]"
+					},
+					"LS_SQL_password": {
+						"value": "[parameters('LS_SQL_password')]"
+					},
+					"LS_ADLS_properties_typeProperties_url": {
+						"value": "[parameters('LS_ADLS_properties_typeProperties_url')]"
+					},
+					"LS_KV_properties_typeProperties_baseUrl": {
+						"value": "[parameters('LS_KV_properties_typeProperties_baseUrl')]"
+					},
+					"LS_SQL_properties_typeProperties_server": {
+						"value": "[parameters('LS_SQL_properties_typeProperties_server')]"
+					},
+					"LS_SQL_properties_typeProperties_database": {
+						"value": "[parameters('LS_SQL_properties_typeProperties_database')]"
+					},
+					"LS_SQL_properties_typeProperties_userName": {
+						"value": "[parameters('LS_SQL_properties_typeProperties_userName')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "DF-ADENOV24_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"LS_ADLS_KV_properties_typeProperties_url": {
+						"value": "[parameters('LS_ADLS_KV_properties_typeProperties_url')]"
+					},
+					"LS_DBS_properties_typeProperties_existingClusterId": {
+						"value": "[parameters('LS_DBS_properties_typeProperties_existingClusterId')]"
+					},
+					"LS_SQL2_properties_typeProperties_server": {
+						"value": "[parameters('LS_SQL2_properties_typeProperties_server')]"
+					},
+					"LS_SQL2_properties_typeProperties_database": {
+						"value": "[parameters('LS_SQL2_properties_typeProperties_database')]"
+					},
+					"LS_SQL2_properties_typeProperties_userName": {
+						"value": "[parameters('LS_SQL2_properties_typeProperties_userName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'DF-ADENOV24_ArmTemplate_0')]"
+			]
+		},
+		{
+			"name": "DF-ADENOV24_ArmTemplate_2",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_2.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"Tumbling_Trigger_properties_pipeline_parameters_windowStartTime": {
+						"value": "[parameters('Tumbling_Trigger_properties_pipeline_parameters_windowStartTime')]"
+					},
+					"Tumbling_Trigger_properties_pipeline_parameters_windowEndTime": {
+						"value": "[parameters('Tumbling_Trigger_properties_pipeline_parameters_windowEndTime')]"
+					},
+					"eventbasedtrigger_properties_typeProperties_scope": {
+						"value": "[parameters('eventbasedtrigger_properties_typeProperties_scope')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'DF-ADENOV24_ArmTemplate_1')]"
+			]
+		}
+	]
+}

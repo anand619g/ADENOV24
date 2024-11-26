@@ -1,0 +1,54 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "DF-ADENOV24"
+		},
+		"LS_ADLS_accountKey": {
+			"value": ""
+		},
+		"LS_SQL_password": {
+			"value": ""
+		},
+		"LS_ADLS_properties_typeProperties_url": {
+			"value": "https://adlsnov24.dfs.core.windows.net/"
+		},
+		"LS_ADLS_KV_properties_typeProperties_url": {
+			"value": "https://adlsnov24.dfs.core.windows.net/"
+		},
+		"LS_DBS_properties_typeProperties_existingClusterId": {
+			"value": "1125-042634-k34o40e7"
+		},
+		"LS_KV_properties_typeProperties_baseUrl": {
+			"value": "https://kv-adenov24.vault.azure.net/"
+		},
+		"LS_SQL_properties_typeProperties_server": {
+			"value": "sqlservernov24.database.windows.net"
+		},
+		"LS_SQL_properties_typeProperties_database": {
+			"value": "dbadenov24"
+		},
+		"LS_SQL_properties_typeProperties_userName": {
+			"value": "sqladmin"
+		},
+		"LS_SQL2_properties_typeProperties_server": {
+			"value": "sqlservernov24.database.windows.net"
+		},
+		"LS_SQL2_properties_typeProperties_database": {
+			"value": "dbadenov24"
+		},
+		"LS_SQL2_properties_typeProperties_userName": {
+			"value": "sqladmin"
+		},
+		"Tumbling_Trigger_properties_pipeline_parameters_windowStartTime": {
+			"value": "@trigger().outputs.windowStartTime"
+		},
+		"Tumbling_Trigger_properties_pipeline_parameters_windowEndTime": {
+			"value": "@trigger().outputs.windowEndTime"
+		},
+		"eventbasedtrigger_properties_typeProperties_scope": {
+			"value": "/subscriptions/988bbad3-94cd-4192-b70e-fceb7e135552/resourceGroups/RG-ADENOV24/providers/Microsoft.Storage/storageAccounts/adlsnov24"
+		}
+	}
+}
