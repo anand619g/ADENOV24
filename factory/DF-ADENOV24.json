@@ -1,0 +1,9 @@
+{
+	"name": "DF-ADENOV24",
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "8e02a7bf-a27d-4602-a7cb-9e293430bc37",
+		"tenantId": "136e8d4d-0eaa-4479-82ed-6e82b226530a"
+	}
+}

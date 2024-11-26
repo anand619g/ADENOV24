@@ -1,0 +1,19 @@
+{
+	"name": "LS_ADLS_KV",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://adlsnov24.dfs.core.windows.net/",
+			"accountKey": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "LS_KV",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "adlskey"
+			}
+		}
+	}
+}

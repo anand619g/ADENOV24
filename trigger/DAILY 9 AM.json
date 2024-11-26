@@ -1,0 +1,38 @@
+{
+	"name": "DAILY 9 AM",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "Schedule_Trigger",
+					"type": "PipelineReference"
+				}
+			},
+			{
+				"pipelineReference": {
+					"referenceName": "Schedule_PIPELINE2",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 1,
+				"startTime": "2024-11-23T03:19:00",
+				"timeZone": "India Standard Time",
+				"schedule": {
+					"minutes": [
+						51
+					],
+					"hours": [
+						8
+					]
+				}
+			}
+		}
+	}
+}

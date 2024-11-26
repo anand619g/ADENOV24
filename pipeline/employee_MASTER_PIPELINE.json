@@ -1,0 +1,75 @@
+{
+	"name": "employee_MASTER_PIPELINE",
+	"properties": {
+		"activities": [
+			{
+				"name": "ON_PREM_2_BRONZE",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "ONPREM_2_BRONZE",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"Table_Name": "employee"
+					}
+				}
+			},
+			{
+				"name": "BRONZE_2_SILVER",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "ON_PREM_2_BRONZE",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "BRONZE_2_SILVER",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "SILVER_2_GOLD",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "BRONZE_2_SILVER",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "SILVER_2_GOLD",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2024-11-25T05:21:23Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

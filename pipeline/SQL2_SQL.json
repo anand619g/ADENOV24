@@ -1,0 +1,77 @@
+{
+	"name": "SQL2_SQL",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "SELECT ID, NAME FROM DBO.TABLEB",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "Dynamic_sql_table",
+						"type": "DatasetReference",
+						"parameters": {
+							"tablename": {
+								"value": "@pipeline().parameters.InputTable",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "Dynamic_sql_table",
+						"type": "DatasetReference",
+						"parameters": {
+							"tablename": {
+								"value": "@pipeline().parameters.OutputTable",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"InputTable": {
+				"type": "String"
+			},
+			"OutputTable": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-11-15T03:43:17Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

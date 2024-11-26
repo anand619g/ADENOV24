@@ -1,0 +1,120 @@
+{
+	"name": "pipeline3",
+	"properties": {
+		"activities": [
+			{
+				"name": "Until1",
+				"type": "Until",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@equals(variables('Index_Val'),'file4.csv' )",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Temp_Count",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "Get_FileName",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "Temp_Count",
+								"value": {
+									"value": "@add(variables('Iter_Count'),1)",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "Iter_Count",
+							"type": "SetVariable",
+							"dependsOn": [
+								{
+									"activity": "Temp_Count",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "Iter_Count",
+								"value": {
+									"value": "@variables('Temp_Count')",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "Get_FileName",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "Index_Val",
+								"value": {
+									"value": "@pipeline().parameters.Input_Array[variables('Iter_Count')]",
+									"type": "Expression"
+								}
+							}
+						}
+					],
+					"timeout": "0.12:00:00"
+				}
+			}
+		],
+		"parameters": {
+			"Input_Array": {
+				"type": "array",
+				"defaultValue": [
+					"file1.txt",
+					"file2.csv",
+					"file3.pdf",
+					"file4.csv",
+					"file5.xlsx",
+					"file6.pptx",
+					"file7.jpg",
+					"file8.json",
+					"file9.xml",
+					"file10.html"
+				]
+			}
+		},
+		"variables": {
+			"Index_Val": {
+				"type": "String"
+			},
+			"Temp_Count": {
+				"type": "Integer",
+				"defaultValue": 0
+			},
+			"Iter_Count": {
+				"type": "Integer",
+				"defaultValue": 0
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-11-21T04:03:59Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,111 @@
+{
+	"name": "Get_Meta",
+	"properties": {
+		"activities": [
+			{
+				"name": "Get Metadata_FILE",
+				"type": "GetMetadata",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "Cus1_csv",
+						"type": "DatasetReference"
+					},
+					"fieldList": [
+						"structure",
+						"size",
+						"lastModified",
+						"itemType",
+						"itemName",
+						"exists",
+						"contentMD5",
+						"columnCount"
+					],
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
+						"enablePartitionDiscovery": false
+					},
+					"formatSettings": {
+						"type": "DelimitedTextReadSettings"
+					}
+				}
+			},
+			{
+				"name": "Get Metadata_FOLDER",
+				"type": "GetMetadata",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "blob_folder_name",
+						"type": "DatasetReference",
+						"parameters": {
+							"foldername": "Input"
+						}
+					},
+					"fieldList": [
+						"lastModified",
+						"itemType",
+						"itemName",
+						"exists",
+						"childItems"
+					],
+					"storeSettings": {
+						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
+						"enablePartitionDiscovery": false
+					},
+					"formatSettings": {
+						"type": "DelimitedTextReadSettings"
+					}
+				}
+			},
+			{
+				"name": "Get Metadata_DATABASE",
+				"type": "GetMetadata",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "Dynamic_sql_table",
+						"type": "DatasetReference",
+						"parameters": {
+							"tablename": "TABLEB"
+						}
+					},
+					"fieldList": [
+						"structure",
+						"exists",
+						"columnCount"
+					]
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2024-11-19T03:31:37Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
